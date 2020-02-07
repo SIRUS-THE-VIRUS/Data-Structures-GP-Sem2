@@ -1,0 +1,9 @@
+Classes - Attributes
+========
+Player - PlayerNum,PlayerName,PlayerGrandTotal=0
+Round - Category, Puzzletype, roundtotal
+
+List ADT
+============
+Players as nodes creating a circular list
+
