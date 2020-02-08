@@ -53,6 +53,10 @@ private:
 	player data;
 	Node* next;
 public:
+	Node() {
+		player();
+		next = NULL;
+	}
 	Node(int playerNum,string playerName,float grandTotal) {
 		data.setPlayerNum(playerNum);
 		data.setPlayerName(playerName);
@@ -65,7 +69,9 @@ public:
 		return next;
 	}
 	//get data from Player to be implemented
-	
+	void getdata() {
+		data.display();
+	}
 };
 
 class linkedList {
@@ -86,4 +92,22 @@ public:
 		}
 		current->setNext(new Node(playerNum, playerName, grandTotal));
 	}
+	void display() {
+		Node* temp = new Node;
+		temp = head;
+		while (temp != NULL) {
+			temp->getdata();
+			temp = temp->getNext();
+		}
+	}
 };
+
+int main() {
+
+	linkedList* list = new linkedList();
+	list->append(1, "Lashawn", 69000);
+	list->append(2, "sirus", 696969);
+	list->append(3, "john", 12345);
+	list->display();
+	return 0;
+}
