@@ -40,7 +40,7 @@ public:
 	float getGrandTotal() {
 		return grandTotal;
 	}
-	//display funtion to be used in the get data for the node class
+	//display funtion to be used in the get data for the PNode class
 	void display() {
 		cout << "Player Number:      " << playerNum << endl;
 		cout << "Player Name:        " << playerName << endl;
@@ -48,24 +48,24 @@ public:
 	}
 };
 
-class Node {
+class PNode {
 private:
 	player data;
-	Node* next;
+	PNode* next;
 public:
-	Node() {
+	PNode() {
 		player();
 		next = NULL;
 	}
-	Node(int playerNum,string playerName,float grandTotal) {
+	PNode(int playerNum,string playerName,float grandTotal) {
 		data.setPlayerNum(playerNum);
 		data.setPlayerName(playerName);
 		data.setGrandTotal(grandTotal);
 	}
-	void setNext(Node* next) {
+	void setNext(PNode* next) {
 		this->next = next;
 	}
-	Node* getNext() {
+	PNode* getNext() {
 		return next;
 	}
 	//get data from Player to be implemented
@@ -74,26 +74,26 @@ public:
 	}
 };
 
-class linkedList {
+class PLinkedList {
 private:
-	Node* head;
+	PNode* head;
 public:
-	linkedList() {
+	PLinkedList() {
 		head = NULL;
 	}
 	void append(int playerNum, string playerName, float grandTotal) {
 		if (head == NULL) {
-			head = new Node(playerNum, playerName, grandTotal);
+			head = new PNode(playerNum, playerName, grandTotal);
 			return;
 		}
-		Node* current = head;
+		PNode* current = head;
 		while (current->getNext() != NULL) {
 			current = current->getNext();
 		}
-		current->setNext(new Node(playerNum, playerName, grandTotal));
+		current->setNext(new PNode(playerNum, playerName, grandTotal));
 	}
 	void display() {
-		Node* temp = new Node;
+		PNode* temp = new PNode;
 		temp = head;
 		while (temp != NULL) {
 			temp->getdata();
@@ -101,10 +101,62 @@ public:
 		}
 	}
 };
+//Everything above has to do with the Player Linked List (PNode - Player Node)
+
+class card {
+private:
+	string type;
+	int value;
+public:
+	card() {
+		type = "None";
+		value = 9999;
+	}
+	void setType(string type) {
+		this->type = type;
+	}
+	void setValue(int value) {
+		this->value = value;
+	}
+	string getType() {
+		return type;
+	}
+	int getValue() {
+		return value;
+	}
+	void display() {
+		cout << "Card Type:      " << type << endl;
+		cout << "Card Value:        " << value << endl;
+	}
+};
+
+class WNode {
+private:
+	card data;
+	WNode* next;
+public:
+	WNode() {
+		player();
+		next = NULL;
+	}
+	WNode(string type,int value) {
+		data.setType(type);
+		data.setValue(value);
+	}
+	void setNext(WNode* next) {
+		this->next = next;
+	}
+	WNode* getNext() {
+		return next;
+	}
+	void getdata() {
+		data.display();
+	}
+};
 
 int main() {
 
-	linkedList* list = new linkedList();
+	PLinkedList* list = new PLinkedList();
 	list->append(1, "Lashawn", 69000);
 	list->append(2, "sirus", 696969);
 	list->append(3, "john", 12345);
