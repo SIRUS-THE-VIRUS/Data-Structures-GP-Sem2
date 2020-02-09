@@ -153,13 +153,46 @@ public:
 		data.display();
 	}
 };
+class WLinkedList {
+private:
+	WNode* head;
+public:
+	WLinkedList() {
+		head = NULL;
+	}
+	void append(string type, int value) {
+		if (head == NULL) {
+			head = new WNode(type,value);
+			return;
+		}
+		WNode* current = head;
+		while (current->getNext() != NULL) {
+			current = current->getNext();
+		}
+		current->setNext(new WNode(type, value));
+	}
+	void display() {
+		WNode* temp = new WNode;
+		temp = head;
+		while (temp != NULL) {
+			temp->getdata();
+			temp = temp->getNext();
+		}
+	}
+};
 
 int main() {
 
 	PLinkedList* list = new PLinkedList();
+	WLinkedList* wheel = new WLinkedList();
 	list->append(1, "Lashawn", 69000);
 	list->append(2, "sirus", 696969);
 	list->append(3, "john", 12345);
+	for (int i = 0; i < 25; i++) {
+		wheel->append("Money", 500);
+	}
 	list->display();
+	cout << "=======================================" << endl;
+	wheel->display();
 	return 0;
 }
