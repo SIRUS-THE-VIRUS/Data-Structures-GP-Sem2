@@ -8,14 +8,14 @@ class player {
 private:
 	int playerNum;
 	string playerName;
-	float grandTotal;
+	int grandTotal;
 public:
 	player() {
 		playerNum = 0;
 		playerName = "Undefined";
 		grandTotal = 0.0;
 	}
-	player(int playerNum,string playerName,float grandTotal) {
+	player(int playerNum,string playerName,int grandTotal) {
 		this->playerName = playerName;
 		this->playerNum = playerNum;
 		this->grandTotal = grandTotal;
@@ -27,7 +27,7 @@ public:
 	void setPlayerName(string playerName) {
 		this->playerName = playerName;
 	}
-	void setGrandTotal(float grandTotal) {
+	void setGrandTotal(int grandTotal) {
 		this->grandTotal = grandTotal;
 	}
 	//getters
@@ -37,7 +37,7 @@ public:
 	string getPlayerName() {
 		return playerName;
 	}
-	float getGrandTotal() {
+	int getGrandTotal() {
 		return grandTotal;
 	}
 	//display funtion to be used in the get data for the PNode class
@@ -57,7 +57,7 @@ public:
 		player();
 		next = NULL;
 	}
-	PNode(int playerNum,string playerName,float grandTotal) {
+	PNode(int playerNum,string playerName,int grandTotal) {
 		data.setPlayerNum(playerNum);
 		data.setPlayerName(playerName);
 		data.setGrandTotal(grandTotal);
@@ -181,16 +181,60 @@ public:
 	}
 };
 
-int main() {
+class round {
+private:
+	string category;
+	string puzzle;
+	int roundTotal;
+public:
+	void setCategory(string category) {
+		this->category = category;
+	}
+	void setPuzzle(string puzzle) {
+		this->puzzle = puzzle;
+	}
+	void setRoundTotal(int roundTotal) {
+		this->roundTotal = roundTotal;
+	}
+	string getCategory() {
+		return category;
+	}
+	string getPuzzle() {
+		return puzzle;
+	}
+	int getRoundTotal() {
+		return roundTotal;
+	}
+};
 
+int main() {
+	string temp;
 	PLinkedList* list = new PLinkedList();
 	WLinkedList* wheel = new WLinkedList();
-	list->append(1, "Lashawn", 69000);
-	list->append(2, "sirus", 696969);
-	list->append(3, "john", 12345);
-	for (int i = 0; i < 25; i++) {
-		wheel->append("Money", 500);
+	cout << "Welcome to wheel of fortune... 3 player game" << endl;
+	for (int i = 1; i <= 3; i++) {
+		cout << "Enter player "<< i <<" name: ";
+		cin >> temp;
+		list->append(i, temp, 0);
 	}
+	cout << "Genereating Wheel........." << endl;
+	for (int i = 0; i < 21; i++) {
+		int money = 500 + rand()%2000;
+		wheel->append("Money", money);
+	}
+	wheel->append("Lose a Turn", 0);
+	wheel->append("Bankruptcy", 0);
+	wheel->append("Bankruptcy", 0);
+	wheel->append("Bankruptcy", 0);
+	cout << "Wheel Generated successfully" << endl;
+	cout << "Generating Round data......." << endl;
+
+
+
+
+
+	cout << "Round data generated successfully" << endl;
+
 	list->display();
 	cout << "=======================================" << endl;
 	wheel->display();
