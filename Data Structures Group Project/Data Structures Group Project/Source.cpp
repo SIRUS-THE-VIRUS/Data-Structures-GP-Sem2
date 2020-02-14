@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <fstream>
 using namespace std;
-
+string wtype;
 class player {
 private:
 	int playerNum;
@@ -152,6 +152,13 @@ public:
 	void getdata() {
 		data.display();
 	}
+	int getdataValue() {
+		return data.getValue();
+	}
+	string getdataType() {
+		return data.getType();
+	}
+
 };
 class WLinkedList {
 private:
@@ -171,6 +178,20 @@ public:
 		}
 		current->setNext(new WNode(type, value));
 	}
+	int traverse(int pos) {
+		WNode* cur = new WNode;
+		cur = head;
+		for (int i = 1; i < pos; i++) {
+			cur = cur->getNext();
+		}
+		if (cur->getdataType() == "Money") {
+			return cur->getdataValue();
+		}
+		else {
+			wtype = cur->getdataType();
+			return 0;
+		}
+	}
 	void display() {
 		WNode* temp = new WNode;
 		temp = head;
@@ -181,12 +202,17 @@ public:
 	}
 };
 
-class round {
+class Round {
 private:
 	string category;
 	string puzzle;
 	int roundTotal;
 public:
+	Round() {
+		category = "";
+		puzzle = "";
+		roundTotal = 0;
+	}
 	void setCategory(string category) {
 		this->category = category;
 	}
@@ -208,9 +234,10 @@ public:
 };
 
 int main() {
-	string temp;
+	string temp,temp2,cattemp;
 	PLinkedList* list = new PLinkedList();
 	WLinkedList* wheel = new WLinkedList();
+	Round roundObj;
 	cout << "Welcome to wheel of fortune... 3 player game" << endl;
 	for (int i = 1; i <= 3; i++) {
 		cout << "Enter player "<< i <<" name: ";
@@ -219,7 +246,7 @@ int main() {
 	}
 	cout << "Genereating Wheel........." << endl;
 	for (int i = 0; i < 21; i++) {
-		int money = 500 + rand()%2000;
+		int money = 500 + rand() % 2000;
 		wheel->append("Money", money);
 	}
 	wheel->append("Lose a Turn", 0);
@@ -229,7 +256,28 @@ int main() {
 	cout << "Wheel Generated successfully" << endl;
 	cout << "Generating Round data......." << endl;
 
+	cout << "Round 1" << endl;
+	cout << "Player 1 press enter to spin the wheel " << endl;
+	int randomnum = 50 + rand() % 150;
+	cout << "random number genereated : " << randomnum << endl;
+	if (wheel->traverse(randomnum) > 0) {
+		cout << "You landed on money" << endl;
 
+	}
+	else {
+		cout << "You landed on " << wtype << endl;
+	}
+
+	cout << "Player 1 select Category (Person,Place,Thing,) : ";
+	cin >> cattemp;
+	ifstream infile;
+	infile.open("puzzle.txt");
+	while (infile >> temp >> temp2) {
+		if (temp == cattemp) {
+			roundObj.setCategory(temp);
+			roundObj.setPuzzle(temp2);
+		}
+	}
 
 
 
