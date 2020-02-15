@@ -163,20 +163,24 @@ public:
 class WLinkedList {
 private:
 	WNode* head;
+	WNode* tail;
 public:
 	WLinkedList() {
 		head = NULL;
+		tail = NULL;
 	}
 	void append(string type, int value) {
+		WNode* newNode = new WNode(type,value);
 		if (head == NULL) {
-			head = new WNode(type,value);
-			return;
+			head = newNode;
+			tail = newNode;
+			newNode->setNext(head);
 		}
-		WNode* current = head;
-		while (current->getNext() != NULL) {
-			current = current->getNext();
+		else {
+			tail->setNext(newNode);
+			tail = newNode;
+			tail->setNext(head);
 		}
-		current->setNext(new WNode(type, value));
 	}
 	int traverse(int pos) {
 		WNode* cur = new WNode;
@@ -193,11 +197,10 @@ public:
 		}
 	}
 	void display() {
-		WNode* temp = new WNode;
-		temp = head;
-		while (temp != NULL) {
-			temp->getdata();
-			temp = temp->getNext();
+		WNode* cur = head;
+		while (cur != NULL) {
+			cur->getdata();
+			cur = cur->getNext();
 		}
 	}
 };
@@ -245,15 +248,15 @@ int main() {
 		list->append(i, temp, 0);
 	}
 	cout << "Genereating Wheel........." << endl;
-	for (int i = 0; i < 21; i++) {
-		int money = 500 + rand() % 2000;
-		wheel->append("Money", money);
-	}
-	wheel->append("Lose a Turn", 0);
-	wheel->append("Bankruptcy", 0);
-	wheel->append("Bankruptcy", 0);
-	wheel->append("Bankruptcy", 0);
+	wheel->append("bankrupcy", 0);
+	wheel->append("bankrupcy", 0);
+	wheel->append("bankrupcy", 0);
+	wheel->append("bankrupcy", 0);
+	wheel->append("bankrupcy", 0);
+	wheel->append("bankrupcy", 0);
+	wheel->append("bankrupcy", 0);
 	cout << "Wheel Generated successfully" << endl;
+	//wheel->display();
 	cout << "Generating Round data......." << endl;
 
 	cout << "Round 1" << endl;
@@ -282,9 +285,6 @@ int main() {
 
 
 	cout << "Round data generated successfully" << endl;
-
-	list->display();
 	cout << "=======================================" << endl;
-	wheel->display();
 	return 0;
 }
