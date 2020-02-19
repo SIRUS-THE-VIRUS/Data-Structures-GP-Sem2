@@ -237,6 +237,7 @@ public:
 };
 
 int main() {
+	int round = 1;
 	string temp,temp2,cattemp;
 	PLinkedList* list = new PLinkedList();
 	WLinkedList* wheel = new WLinkedList();
@@ -258,33 +259,46 @@ int main() {
 	cout << "Wheel Generated successfully" << endl;
 	//wheel->display();
 	cout << "Generating Round data......." << endl;
+	while (round <= 3) {
+		cout << "Round " << round << endl;
+		cout << "Player 1 press enter to spin the wheel " << endl;
+		int randomnum = 50 + rand() % 150;
+		cout << "random number genereated : " << randomnum << endl;
+		if (wheel->traverse(randomnum) > 0) {
+			cout << "You landed on money" << endl;
 
-	cout << "Round 1" << endl;
-	cout << "Player 1 press enter to spin the wheel " << endl;
-	int randomnum = 50 + rand() % 150;
-	cout << "random number genereated : " << randomnum << endl;
-	if (wheel->traverse(randomnum) > 0) {
-		cout << "You landed on money" << endl;
-
-	}
-	else {
-		cout << "You landed on " << wtype << endl;
-	}
-
-	cout << "Player 1 select Category (Person,Place,Thing,) : ";
-	cin >> cattemp;
-	ifstream infile;
-	infile.open("puzzle.txt");
-	while (infile >> temp >> temp2) {
-		if (temp == cattemp) {
-			roundObj.setCategory(temp);
-			roundObj.setPuzzle(temp2);
 		}
+		else {
+			cout << "You landed on " << wtype << endl;
+		}
+
+		cout << "Player 1 select Category (Person,Place,Thing) : ";
+		cin >> cattemp;
+		ifstream infile;
+		infile.open("puzzle.txt");
+		while (infile >> temp >> temp2) {
+			if (temp == cattemp) {
+				roundObj.setCategory(temp);
+				roundObj.setPuzzle(temp2);
+			}
+		}
+		cout << roundObj.getCategory() << endl;;
+		cout << roundObj.getPuzzle() << endl;
+		
+		cout << "Player 1 would you like to Guess or Solve: ";
+		cin >> temp;
+		if (temp == "Guess") {
+			//implement the queue for guessed letters
+		}
+		else if (temp == "Solve") {
+
+		}
+
+		cout << "Round data generated successfully" << endl;
+		cout << "=======================================" << endl;
+		cout << "End of Round " << round << endl;
+		round += 1;
 	}
-
-
-
-	cout << "Round data generated successfully" << endl;
-	cout << "=======================================" << endl;
+	
 	return 0;
 }
