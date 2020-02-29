@@ -204,7 +204,7 @@ public:
 		}
 	}
 };
-
+// everything above has to do with the Wheel (Wheel node - WNode)
 class Round {
 private:
 	string category;
@@ -257,7 +257,6 @@ int main() {
 	wheel->append("bankrupcy", 0);
 	wheel->append("bankrupcy", 0);
 	cout << "Wheel Generated successfully" << endl;
-	//wheel->display();
 	cout << "Generating Round data......." << endl;
 	while (round <= 3) {
 		cout << "Round " << round << endl;
