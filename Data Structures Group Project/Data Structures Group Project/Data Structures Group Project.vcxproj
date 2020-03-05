@@ -140,6 +140,17 @@
   <ItemGroup>
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Card.h" />
+    <ClInclude Include="Letters.h" />
+    <ClInclude Include="LNode.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PLinkedList.h" />
+    <ClInclude Include="PNode.h" />
+    <ClInclude Include="Queue.h" />
+    <ClInclude Include="WLinkedList.h" />
+    <ClInclude Include="WNode.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
