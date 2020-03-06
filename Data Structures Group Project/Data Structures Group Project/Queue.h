@@ -29,8 +29,7 @@ public:
 				Rear = temp;
 			}
 			else {
-				Rear->setNextNode(temp);
-				temp->setPrevNode(Rear);
+
 				Rear = temp;
 			}
 		}
