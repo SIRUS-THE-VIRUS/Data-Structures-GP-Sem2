@@ -2,22 +2,22 @@
 #include "Card.h"
 using namespace std;
 
-class Node {
+class WNode {
 private:
 	card data;
-	Node* next;
+	WNode* next;
 public:
-	Node():data() {
+	WNode():data() {
 		next = NULL;
 	}
-	Node(string type, int value) {
+	WNode(string type, int value) {
 		data.setType(type);
 		data.setValue(value);
 	}
-	void setNext(Node* next) {
+	void setNext(WNode* next) {
 		this->next = next;
 	}
-	Node* getNext() {
+	WNode* getNext() {
 		return next;
 	}
 	void getdata() {

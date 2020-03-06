@@ -1,25 +1,22 @@
-#include <iostream>
+
 #include "Player.h"
 using namespace std;
 
-class Node {
+class PNode {
 private:
 	player data;
-	Node* next;
+	PNode* next;
 public:
-	Node() {
-		player();
+	PNode():data() {
 		next = NULL;
 	}
-	Node(int playerNum, string playerName, int grandTotal) {
-		data.setPlayerNum(playerNum);
-		data.setPlayerName(playerName);
-		data.setGrandTotal(grandTotal);
+	PNode(int playerNum,string playerName,float grandTotal):data(playerNum,playerName,grandTotal) {
+
 	}
-	void setNext(Node* next) {
+	void setNext(PNode* next) {
 		this->next = next;
 	}
-	Node* getNext() {
+	PNode* getNext() {
 		return next;
 	}
 	//get data from Player to be implemented

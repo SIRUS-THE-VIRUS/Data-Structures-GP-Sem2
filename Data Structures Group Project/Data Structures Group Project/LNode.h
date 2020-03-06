@@ -1,29 +1,29 @@
 #include "Letters.h"
 
-class Node {
+class LNode {
 private:
 	letters data;
-	Node* NextNode;
-	Node* PrevNode;
+	LNode* NextNode;
+	LNode* PrevNode;
 public:
-	Node() :data() {
+	LNode() :data() {
 		NextNode = NULL;
 		PrevNode = NULL;
 	}
-	Node(string guess) :data(guess) {
+	LNode(string guess) :data(guess) {
 		NextNode = NULL;
 		PrevNode = NULL;
 	}
-	Node* getNextNode() {
+	LNode* getNextNode() {
 		return NextNode;
 	}
-	void setNextNode(Node* nextNode) {
+	void setNextNode(LNode* nextNode) {
 		NextNode = nextNode;
 	}
-	Node* getPrevNode() {
+	LNode* getPrevNode() {
 		return PrevNode;
 	}
-	void setPrevNode(Node* prevNode) {
+	void setPrevNode(LNode* prevNode) {
 		PrevNode = prevNode;
 	}
 	letters getData() {

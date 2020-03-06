@@ -1,18 +1,19 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
 class player {
 private:
 	int playerNum;
 	string playerName;
-	int grandTotal;
+	float grandTotal;
 public:
 	player() {
 		playerNum = 0;
 		playerName = "Undefined";
 		grandTotal = 0.0;
 	}
-	player(int playerNum, string playerName, int grandTotal) {
+	player(int playerNum, string playerName, float grandTotal) {
 		this->playerName = playerName;
 		this->playerNum = playerNum;
 		this->grandTotal = grandTotal;
@@ -24,7 +25,7 @@ public:
 	void setPlayerName(string playerName) {
 		this->playerName = playerName;
 	}
-	void setGrandTotal(int grandTotal) {
+	void setGrandTotal(float grandTotal) {
 		this->grandTotal = grandTotal;
 	}
 	//getters
@@ -34,7 +35,7 @@ public:
 	string getPlayerName() {
 		return playerName;
 	}
-	int getGrandTotal() {
+	float getGrandTotal() {
 		return grandTotal;
 	}
 	//display funtion to be used in the get data for the PNode class

@@ -1,36 +1,38 @@
 #include "LNode.h"
+using namespace std;
 
 class Queue {
 private:
-	Node* Front;
-	Node* Rear;
+	LNode* front;
+	LNode* rear;
 public:
 	Queue() {
-		Front = NULL;
-		Rear = NULL;
+		front = NULL;
+		rear = NULL;
 	}
-	Node* getFront() {
-		return Front;
+	LNode* getFront() {
+		return front;
 	}
-	Node* getRear() {
-		return Rear;
+	LNode* getRear() {
+		return rear;
 	}
-	void setFront(Node* n) {
-		Front = n;
+	void setFront(LNode* n) {
+		front = n;
 	}
-	void setRear(Node* n) {
-		Rear = n;
+	void setRear(LNode* n) {
+		rear = n;
 	}
 	void Enqueue(string guess) {
-		Node* temp = new Node(guess);
+		LNode* temp = new LNode(guess);
 		if (temp != NULL) {
-			if (Front == NULL) {
-				Front = temp;
-				Rear = temp;
+			if (front == NULL) {
+				front = temp;
+				rear = temp;
 			}
 			else {
-
-				Rear = temp;
+				rear->setNextNode(temp);
+				temp->setPrevNode(rear);
+				rear = temp;
 			}
 		}
 		else {
