@@ -81,7 +81,7 @@ int main() {
 				roundObj.setPuzzle(temp2);
 			}
 		}
-		for (int i = 1; i <= 3; i++) { //new
+		for (int i = 1; i <= 3; i++) {
 			cout << "\t \t \t \t Round " << round << endl;
 			cout << "\n";
 			while (solved == false) {
@@ -103,9 +103,17 @@ int main() {
 					cout << "You landed on " << wtype << endl;
 					if (wtype == "bankrupcy") {
 						roundObj.setRoundTotal(0, i);
+						if (i == 3) {
+							i = 0;
+							break;
+						}
 						break;
 					}
 					else if (wtype == "lose a turn") {
+						if (i == 3) {
+							i = 0;
+							break;
+						}
 						break;
 					}
 
@@ -114,33 +122,42 @@ int main() {
 				cout << "would you like to Guess or Solve or BuyVowel: ";
 				cin >> temp;
 				if (temp == "Guess") {
+					int occurence = 0;
+					char guess2[2];
 					while (true) {
-						int occurence = 0;
-						cout << "What letter: "<<endl;
+						cout << "What letter: " << endl;
 						cin >> guess;
-						char guess2[2];
 						strcpy_s(guess2, guess.c_str());
 						if (g_letters->searchNode(guess) == 1) {
 							cout << "Letter has already been guessed" << endl;
 							cout << "try again" << endl;
 						}
 						else {
-							g_letters->Enqueue(guess);
-							string s = roundObj.getPuzzle();
-							for (int i = 0; i < s.length(); i++) {
-								if (s[i] == guess2[0]) {
-									occurence++;
-								}
-							}
-							if (occurence == 0) {
-								break;
-							}
-							else { 
-								total[i] += occurence * money_value;
-								roundObj.setRoundTotal(total[i], i);
-								break;
+							break;
+						}
+					}
+					if(g_letters->searchNode(guess)!=1) {
+						g_letters->Enqueue(guess);
+						string s = roundObj.getPuzzle();
+						for (int x = 0; x < s.length(); x++) {
+							if (s[x] == guess2[0]) {
+								occurence++;
 							}
 						}
+						if (occurence == 0) {
+							cout << "That letter was not found in the word" << endl;
+							if (i == 3) {
+								i = 0;
+								break;
+							}
+							break;
+						}
+						else {
+							total[i] += occurence * money_value;
+							roundObj.setRoundTotal(total[i], i);
+							cout << "THat letter was found in the word" << endl;
+						}
+
 					}
 				}
 				else if (temp == "Solve") {
@@ -159,25 +176,46 @@ int main() {
 				else if (temp == "BuyVowel")
 				{
 					int num;
-					char vowel;
-					cout << "Enter player number: ";
-					cin >> num;
+					string vowel;
 					cout << "\n";
 					cout << "Enter the vowel you wish to buy (a, e, i, o or u): " << endl;
 					cin >> vowel;
-					int i =0;
 					
-					if (vowel == 'a'||vowel =='e'||vowel=='i'||vowel=='o'||vowel =='u') 
+					if (vowel == "a"||vowel =="e"||vowel=="i"||vowel=="o"||vowel =="u") 
 					{
-						if (money_value > vowel_amount)
+						if (total[i] > vowel_amount)
 						{
-							while (num = i)
-							{
-								total[i] = money_value - vowel_amount;
-								cout << " Money left :" << total[i] << endl;
-								i++;
+							int occurence = 0;
+							total[i] = total[i] - vowel_amount;
+							cout << " Money left :" << total[i] << endl;
+							char guess2[2];
+							strcpy_s(guess2, vowel.c_str());
+							if (g_letters->searchNode(vowel) == 1) {
+								cout << "Vowel has already been guessed" << endl;
+								cout << "try again" << endl;
 							}
-							//add the vowel to the word if it is in the word if not then tell them it is not a part of the word
+							else {
+								g_letters->Enqueue(vowel);
+								string s = roundObj.getPuzzle();
+								for (int x = 0; x < s.length(); x++) {
+									if (s[x] == guess2[0]) {
+										occurence++;
+									}
+								}
+								if (occurence == 0) {
+									cout << "That letter was not found in the word" << endl;
+									if (i == 3) {
+										i = 0;
+										break;
+									}
+									break;
+								}
+								else {
+									total[i] += occurence * money_value;
+									roundObj.setRoundTotal(total[i], i);
+									cout << "THat letter was found in the word" << endl;
+								}
+							}
 						}
 						else
 						{
@@ -188,6 +226,7 @@ int main() {
 			}
 			if (solved == true) {
 				cout << "End of Round " << round << endl;
+				round++;
 				string Answer;
 				cout << "Do you want to exit the game?"<< endl;
 				cin >> Answer;
@@ -198,7 +237,8 @@ int main() {
 				}
 				else if (Answer == "No" || Answer == "no")
 				{
-					solved = false;//
+					g_letters->setFront(NULL);
+					solved = false;
 					break;
 				}
 			}
