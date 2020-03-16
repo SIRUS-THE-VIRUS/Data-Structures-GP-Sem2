@@ -13,5 +13,10 @@ public:
 	letters(string guess) {
 		this->guess = guess;
 	}
-
+	void setguess(string guess) {
+		this->guess = guess;
+	}
+	string getguess() {
+		return guess;
+	}
 };
