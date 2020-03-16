@@ -38,6 +38,7 @@ int main() {
 
 	int round = 1;
 	int total[4] = {0,0,0,0};
+	int vowel_amount = 50;
 	string temp, temp2, cattemp, ans, guess;
 	bool solved = false;
 	PLinkedList* list = new PLinkedList();
@@ -53,7 +54,7 @@ int main() {
 	system("pause");
 	system("CLS");
 
-	cout << "Genersating Wheel........." << endl;
+	cout << "Generating Wheel........." << endl;
 	wheel->append("money", 10);
 	wheel->append("money", 20);
 	wheel->append("money", 30);
@@ -94,6 +95,7 @@ int main() {
 				int money_value = wheel->traverse(randomnum);
 				if (money_value > 0) {
 					cout << "You landed on money" << endl;
+					cout << "money : " << money_value << endl;
 
 				}
 				else {
@@ -114,7 +116,7 @@ int main() {
 				if (temp == "Guess") {
 					while (true) {
 						int occurence = 0;
-						cout << "What letter: ";
+						cout << "What letter: "<<endl;
 						cin >> guess;
 						char guess2[2];
 						strcpy_s(guess2, guess.c_str());
@@ -154,8 +156,34 @@ int main() {
 						cout << "incorrect";
 					}
 				}
-				else if (temp == "BuyVowel") {
-
+				else if (temp == "BuyVowel")
+				{
+					int num;
+					char vowel;
+					cout << "Enter player number: ";
+					cin >> num;
+					cout << "\n";
+					cout << "Enter the vowel you wish to buy (a, e, i, o or u): " << endl;
+					cin >> vowel;
+					int i =0;
+					
+					if (vowel == 'a'||vowel =='e'||vowel=='i'||vowel=='o'||vowel =='u') 
+					{
+						if (money_value > vowel_amount)
+						{
+							while (num = i)
+							{
+								total[i] = money_value - vowel_amount;
+								cout << " Money left :" << total[i] << endl;
+								i++;
+							}
+							//add the vowel to the word if it is in the word if not then tell them it is not a part of the word
+						}
+						else
+						{
+							cout << "You dont have enough money \n";
+						}
+					}
 				}
 			}
 			if (solved == true) {
