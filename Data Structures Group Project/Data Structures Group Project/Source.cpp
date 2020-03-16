@@ -171,7 +171,7 @@ int main() {
 					{
 						if (money_value > vowel_amount)
 						{
-							while (num = i)
+							while (num = i )
 							{
 								total[i] = money_value - vowel_amount;
 								cout << " Money left :" << total[i] << endl;
