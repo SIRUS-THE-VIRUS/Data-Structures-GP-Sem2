@@ -170,7 +170,7 @@ int main() {
 				}
 				else if (Answer == "No" || Answer == "no")
 				{
-					solved = false;
+					solved = false;//
 					break;
 				}
 			}
