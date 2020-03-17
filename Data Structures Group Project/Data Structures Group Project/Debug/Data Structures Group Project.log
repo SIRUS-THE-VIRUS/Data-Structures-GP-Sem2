@@ -1,1 +1,4 @@
-﻿  Data Structures Group Project.vcxproj -> C:\Users\watso\OneDrive\Documents\GitHub\Data-Structures-GP-Sem2\Data Structures Group Project\Debug\Data Structures Group Project.exe
+﻿  Source.cpp
+C:\Users\watso\OneDrive\Documents\GitHub\Data-Structures-GP-Sem2\Data Structures Group Project\Data Structures Group Project\Source.cpp(149,25): warning C4018: '<': signed/unsigned mismatch
+C:\Users\watso\OneDrive\Documents\GitHub\Data-Structures-GP-Sem2\Data Structures Group Project\Data Structures Group Project\Source.cpp(215,28): warning C4018: '<': signed/unsigned mismatch
+LINK : fatal error LNK1168: cannot open C:\Users\watso\OneDrive\Documents\GitHub\Data-Structures-GP-Sem2\Data Structures Group Project\Debug\Data Structures Group Project.exe for writing
