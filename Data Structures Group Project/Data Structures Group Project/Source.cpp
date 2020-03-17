@@ -55,18 +55,20 @@ int main() {
 	system("CLS");
 
 	cout << "Generating Wheel........." << endl;
-	wheel->append("money", 10);
-	wheel->append("money", 20);
-	wheel->append("money", 30);
-	wheel->append("money", 40);
-	wheel->append("money", 50);
-	wheel->append("money", 60);
-	wheel->append("bankrupcy", 70);
+	wheel->append("bankrupcy", 0);
+	wheel->append("bankrupcy", 0);
+	wheel->append("bankrupcy", 0);
+	wheel->append("bankrupcy", 0);
+	wheel->append("bankrupcy", 0);
+	wheel->append("bankrupcy", 0);
+	wheel->append("bankrupcy", 0);
 
 
 	cout << "Wheel Generated successfully\n" << endl;
 
 	while (round <= 3) {
+		int skip[4] = { 0,0,0,0 };
+		cout << "\t \t \t \t Round " << round << endl;
 		cout << "Select a Category for round(Person,Place,Thing) : ";
 		cin >> cattemp;
 		system("CLS");
@@ -88,7 +90,19 @@ int main() {
 			cout << "\n";
 			while (solved == false)
 			{
-				cout << "Player " << i << endl; //new
+				if (skip[1] == 1 && skip[2] == 1 && skip[3] == 1) {
+					cout << "you all are bankrupt no one wins" << endl;
+					i = 3;
+					break;
+				}
+				else if(skip[i] == 1) {
+					if (i == 3) {
+						i = 0;
+						break;
+					}
+					break;
+				}
+				cout << "Player " << i << endl;
 				cout << "\n";
 				cout << "press enter to spin the wheel " << endl;
 				system("pause");
@@ -108,9 +122,11 @@ int main() {
 					if (wtype == "bankrupcy") {
 						roundObj.setRoundTotal(0, i);
 						if (i == 3) {
+							skip[i] = 1;
 							i = 0;
 							break;
 						}
+						skip[i] = 1;
 						break;
 					}
 					else if (wtype == "lose a turn") {
@@ -189,49 +205,42 @@ int main() {
 					{
 						if (total[i] > vowel_amount)
 						{
-							//<<<<<<< HEAD
-							while (num = i)
+							total[i] = money_value - vowel_amount;
+							cout << " Money left :" << total[i] << endl;
+							int occurence = 0;
+							total[i] = total[i] - vowel_amount;
+							cout << " Money left :" << total[i] << endl;
+							char guess2[2];
+							strcpy_s(guess2, vowel.c_str());
+							if (g_letters->searchNode(vowel) == 1)
 							{
-								total[i] = money_value - vowel_amount;
-								cout << " Money left :" << total[i] << endl;
-								i++;
-								//=======
-								int occurence = 0;
-								total[i] = total[i] - vowel_amount;
-								cout << " Money left :" << total[i] << endl;
-								char guess2[2];
-								strcpy_s(guess2, vowel.c_str());
-								if (g_letters->searchNode(vowel) == 1)
+								cout << "Vowel has already been guessed" << endl;
+								cout << "try again" << endl;
+							}
+							else {
+								g_letters->Enqueue(vowel);
+								string s = roundObj.getPuzzle();
+								for (int x = 0; x < s.length(); x++)
 								{
-									cout << "Vowel has already been guessed" << endl;
-									cout << "try again" << endl;
-								}
-								else {
-									g_letters->Enqueue(vowel);
-									string s = roundObj.getPuzzle();
-									for (int x = 0; x < s.length(); x++)
+									if (s[x] == guess2[0])
 									{
-										if (s[x] == guess2[0])
-										{
-											occurence++;
-										}
+										occurence++;
 									}
-									if (occurence == 0)
+								}
+								if (occurence == 0)
+								{
+									cout << "That letter was not found in the word" << endl;
+									if (i == 3)
 									{
-										cout << "That letter was not found in the word" << endl;
-										if (i == 3)
-										{
-											i = 0;
-											break;
-										}
+										i = 0;
 										break;
 									}
-									else {
-										total[i] += occurence * money_value;
-										roundObj.setRoundTotal(total[i], i);
-										cout << "That letter was found in the word" << endl;
-									}
-									//>>>>>>> 44a808aaaef34c124f6b534fe31efae51312acfe
+									break;
+								}
+								else {
+									total[i] += occurence * money_value;
+									roundObj.setRoundTotal(total[i], i);
+									cout << "That letter was found in the word" << endl;
 								}
 							}
 						}
@@ -265,6 +274,6 @@ int main() {
 				}
 			}
 		}
-		return 0;
 	}
+	return 0;
 }
