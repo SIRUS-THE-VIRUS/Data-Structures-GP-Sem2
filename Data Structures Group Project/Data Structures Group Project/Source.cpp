@@ -45,7 +45,9 @@ int main() {
 	WLinkedList* wheel = new WLinkedList();
 	Queue* g_letters = new Queue();
 	Round roundObj;
-	cout << "Welcome to wheel of fortune... 3 player game" << endl;
+	cout << "\t \t \t ***********************************************\n";
+	cout << "\t\t\t   Welcome to wheel of fortune... 3 player game" << endl;
+	cout << "\t \t \t ***********************************************\n\n";
 	for (int i = 1; i <= 3; i++) {
 		cout << "Enter player " << i << " name: ";
 		cin >> temp;
@@ -62,14 +64,26 @@ int main() {
 	wheel->append("bankrupcy", 0);
 	wheel->append("bankrupcy", 0);
 	wheel->append("bankrupcy", 0);
+	cout << "Please wait while the wheel generates........." << endl;
+	system("pause");
+	system("CLS");
+	wheel->append("money", 10);
+	wheel->append("money", 20);
+	wheel->append("money", 30);
+	wheel->append("money", 40);
+	wheel->append("money", 50);
+	wheel->append("money", 60);
+	wheel->append("bankrupcy", 70);
 
 
-	cout << "Wheel Generated successfully\n" << endl;
+
+	cout << "\nWheel was Generated successfully\n" << endl;
 
 	while (round <= 3) {
 		int skip[4] = { 0,0,0,0 };
 		cout << "\t \t \t \t Round " << round << endl;
 		cout << "Select a Category for round(Person,Place,Thing) : ";
+		cout << "Select a Category  (Person,Place,Thing) : ";
 		cin >> cattemp;
 		system("CLS");
 		cout << "Category: " << cattemp << endl;
@@ -104,16 +118,17 @@ int main() {
 				}
 				cout << "Player " << i << endl;
 				cout << "\n";
-				cout << "press enter to spin the wheel " << endl;
+				cout << "Press enter to spin the wheel " << endl;
 				system("pause");
 
 				int randomnum = 50 + rand() % 150;
-				cout << "random number genereated : " << randomnum << endl;
+				cout << "Random number genereated : " << randomnum << endl;
 				int money_value = wheel->traverse(randomnum);
 				if (money_value > 0) 
 			{
 					cout << "You landed on money" << endl;
-					cout << "money : " << money_value << endl;
+					cout << "Money : " << money_value << endl;
+					
 
 			}
 			else {
@@ -136,21 +151,19 @@ int main() {
 						}
 						break;
 					}
-
 				}
-
-				cout << "would you like to Guess or Solve or BuyVowel: ";
+				cout << "Would you like to Guess or Solve or BuyVowel: ";
 				cin >> temp;
 				if (temp == "Guess") {
 					int occurence = 0;
 					char guess2[2];
 					while (true) {
-						cout << "What letter: " << endl;
+						cout << "What letter?  " << endl;
 						cin >> guess;
 						strcpy_s(guess2, guess.c_str());
 						if (g_letters->searchNode(guess) == 1) {
-							cout << "Letter has already been guessed" << endl;
-							cout << "try again" << endl;
+							cout << "This letter has already been guessed" << endl;
+							cout << "Try again" << endl;
 						}
 						else {
 							break;
@@ -175,22 +188,22 @@ int main() {
 						else {
 							total[i] += occurence * money_value;
 							roundObj.setRoundTotal(total[i], i);
-							cout << "THat letter was found in the word" << endl;
+							cout << "That letter was found in the word" << endl;
 						}
 
 					}
 				}
 				else if (temp == "Solve") {
-					cout << "What is the answer: ";
+					cout << "What is the answer? ";
 					cin >> ans;
 					if (ans == roundObj.getPuzzle()) {
-						cout << "correct";
+						cout << "correct\n";
 
 						solved = true;
 					}
 					else {
 
-						cout << "incorrect";
+						cout << "incorrect\n";
 					}
 				}
 				else if (temp == "BuyVowel")
@@ -223,6 +236,13 @@ int main() {
 								for (int x = 0; x < s.length(); x++)
 								{
 									if (s[x] == guess2[0])
+									cout << "Vowel has already been guessed" << endl;
+									cout << "Try again" << endl;
+								}
+								else {
+									g_letters->Enqueue(vowel);
+									string s = roundObj.getPuzzle();
+									for (int x = 0; x < s.length(); x++)
 									{
 										occurence++;
 									}
@@ -246,7 +266,7 @@ int main() {
 						}
 						else if (total[i] < vowel_amount)
 						{
-							cout << "You dont have enough money \n";
+							cout << "Sorry, you dont have enough money \n";
 						}
 					}
 					else
