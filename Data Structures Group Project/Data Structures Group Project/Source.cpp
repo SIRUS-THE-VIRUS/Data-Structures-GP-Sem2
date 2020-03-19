@@ -64,7 +64,7 @@ int main() {
 	system("pause");
 	system("CLS");
 
-	cout << "Generating Wheel........." << endl;
+	cout << "\nGenerating Wheel........." << endl;
 	system("pause");
 	system("CLS");
 	wheel->append("Money", 100);
@@ -113,22 +113,22 @@ int main() {
 					}
 					break;
 				}
-				cout << "Player " << i << endl;
+				cout << "\nPlayer " << i << endl;
 				cout << "\n";
 				cout << "Press enter to spin the wheel " << endl;
 				system("pause");
-
 				int randomnum = 50 + rand() % 150;
 				cout << "Random number genereated : " << randomnum << endl;
 				money_value = wheel->traverse(randomnum);
 				if (money_value > 0) {
-					cout << "You landed on money" << endl;
+					cout << "\nYou landed on money" << endl;
 					cout << "TEST" << endl;
 					cout << "Money : " << money_value << endl;	
 				}
 				else if(money_value==0) {
 					cout << "You landed on " << wtype << endl;
-					if (wtype == "bankrupcy") {
+					if (wtype == "bankrupcy") 
+					{
 						roundObj.setRoundTotal(0, i);
 						if (i == 3) {
 							skip[i] = 1;
@@ -146,8 +146,9 @@ int main() {
 						break;
 					}
 					}
-				cout << money_value;
-				cout << "Would you like to Guess or Solve or BuyVowel: ";
+				
+				//cout << money_value;
+				cout << "\nWould you like to Guess or Solve or BuyVowel: ";
 				cin >> temp;
 				if (temp == "Guess") {
 					int occurence = 0;
@@ -157,7 +158,7 @@ int main() {
 						cin >> guess;
 						strcpy_s(guess2, guess.c_str());
 						if (g_letters->searchNode(guess) == 1) {
-							cout << "This letter has already been guessed" << endl;
+							cout << "This letter has already been guessed\n" << endl;
 							cout << "Try again" << endl;
 						}
 						else {
@@ -173,7 +174,7 @@ int main() {
 							}
 						}
 						if (occurence == 0) {
-							cout << "That letter was not found in the word" << endl;
+							cout << "That letter was not found in the word\n" << endl;
 							if (i == 3) {
 								i = 0;
 								break;
@@ -183,23 +184,25 @@ int main() {
 						else {
 							total[i] += occurence * money_value;
 							roundObj.setRoundTotal(total[i], i);
-							cout << "That letter was found in the word" << endl;
+							cout << "That letter was found in the word\n" << endl;
 						}
 
 					}
 				}
 				else if (temp == "Solve") {
-					if (total[i] > 0) {
+					if (/*total[i]*/ money_value > 0) {
 						cout << "What is the answer? ";
 						cin >> ans;
 						if (ans == roundObj.getPuzzle()) {
-							cout << "correct\n";
+							cout << "correct\n\n";
 							total[i] += money_value;
 							list->deleteNode(i-1);
 							list->insertNth(i, name[i], total[i], i-1);
 							cout << "SCORES BELOW" << endl;
 							list->display();
 							solved = true;
+							system("pause");
+							system("CLS");
 						}
 						else {
 
@@ -207,7 +210,7 @@ int main() {
 						}
 					}
 					else {
-						cout << "you can't solve. you do not have any money" << endl;
+						cout << "you can't solve. you do not have any money\n" << endl;
 					}
 					
 				}
@@ -267,15 +270,16 @@ int main() {
 					}
 				}
 				if (solved == true) {
-					cout << "End of Round " << round << endl;
+					cout << "\nEnd of Round " << round << endl;
 					round++;
-					cout << "Do you want to exit the game?" << endl;
+					cout << "\nDo you want to exit the game?" << endl;
 					cin >> Answer;
+					cout << "\n";
 					if (Answer == "Yes" || Answer == "yes")
 					{
-						cout << "Scores before exiting shown below" << endl;
+						cout << "\nScores before exiting shown below" << endl;
 						list->display();
-						cout << "Thank you for playing" << endl;
+						cout << "Thank you for playing wheel of fortune!!" << endl;
 						exit(0);
 					}
 					else if (Answer == "No" || Answer == "no")
@@ -288,9 +292,9 @@ int main() {
 			}
 			if (Answer == "No" || Answer == "no")
 				break;
-		}
-		cout << "End of 3 rounds... Scores shown below" << endl;
-		list->display();
+		}	
 	}
+	cout << "\nEnd of 3 rounds... Scores shown below" << endl;
+	list->display();
 	return 0;
 }
