@@ -36,9 +36,11 @@ public:
 
 int main() {
 
-	int round = 1;
+	int round = 1,money_value = 0;
 	int total[4] = { 0,0,0,0 };
 	int vowel_amount = 50;
+	string name[4];
+	string Answer;
 	string temp, temp2, cattemp, ans, guess;
 	bool solved = false;
 	PLinkedList* list = new PLinkedList();
@@ -51,38 +53,33 @@ int main() {
 	for (int i = 1; i <= 3; i++) {
 		cout << "Enter player " << i << " name: ";
 		cin >> temp;
+		name[i] = temp;
 		list->append(i, temp, 0);
 	}
+	//list->display();
+	//list->deleteNode(1);
+	//list->display();
+	////list->insertNth(2, "daddy", 5000, 1);
+	//list->display();
 	system("pause");
 	system("CLS");
 
 	cout << "Generating Wheel........." << endl;
-	wheel->append("bankrupcy", 0);
-	wheel->append("bankrupcy", 0);
-	wheel->append("bankrupcy", 0);
-	wheel->append("bankrupcy", 0);
-	wheel->append("bankrupcy", 0);
-	wheel->append("bankrupcy", 0);
-	wheel->append("bankrupcy", 0);
-	cout << "Please wait while the wheel generates........." << endl;
 	system("pause");
 	system("CLS");
-	wheel->append("money", 10);
-	wheel->append("money", 20);
-	wheel->append("money", 30);
-	wheel->append("money", 40);
-	wheel->append("money", 50);
-	wheel->append("money", 60);
-	wheel->append("bankrupcy", 70);
-
-
+	wheel->append("Money", 100);
+	wheel->append("Money", 200);
+	wheel->append("Money", 300);
+	wheel->append("Money", 400);
+	wheel->append("Money", 500);
+	wheel->append("Money", 600);
+	wheel->append("Money", 700);
 
 	cout << "\nWheel was Generated successfully\n" << endl;
 
 	while (round <= 3) {
 		int skip[4] = { 0,0,0,0 };
 		cout << "\t \t \t \t Round " << round << endl;
-		cout << "Select a Category for round(Person,Place,Thing) : ";
 		cout << "Select a Category  (Person,Place,Thing) : ";
 		cin >> cattemp;
 		system("CLS");
@@ -100,12 +97,12 @@ int main() {
 			}
 		}
 		for (int i = 1; i <= 3; i++) {
-			cout << "\t \t \t \t Round " << round << endl;
 			cout << "\n";
 			while (solved == false)
 			{
 				if (skip[1] == 1 && skip[2] == 1 && skip[3] == 1) {
 					cout << "you all are bankrupt no one wins" << endl;
+					round++;
 					i = 3;
 					break;
 				}
@@ -123,16 +120,13 @@ int main() {
 
 				int randomnum = 50 + rand() % 150;
 				cout << "Random number genereated : " << randomnum << endl;
-				int money_value = wheel->traverse(randomnum);
-				if (money_value > 0) 
-			{
+				money_value = wheel->traverse(randomnum);
+				if (money_value > 0) {
 					cout << "You landed on money" << endl;
-					cout << "Money : " << money_value << endl;
-					
-
-			}
-			else {
-
+					cout << "TEST" << endl;
+					cout << "Money : " << money_value << endl;	
+				}
+				else if(money_value==0) {
 					cout << "You landed on " << wtype << endl;
 					if (wtype == "bankrupcy") {
 						roundObj.setRoundTotal(0, i);
@@ -151,7 +145,8 @@ int main() {
 						}
 						break;
 					}
-				}
+					}
+				cout << money_value;
 				cout << "Would you like to Guess or Solve or BuyVowel: ";
 				cin >> temp;
 				if (temp == "Guess") {
@@ -194,17 +189,27 @@ int main() {
 					}
 				}
 				else if (temp == "Solve") {
-					cout << "What is the answer? ";
-					cin >> ans;
-					if (ans == roundObj.getPuzzle()) {
-						cout << "correct\n";
+					if (total[i] > 0) {
+						cout << "What is the answer? ";
+						cin >> ans;
+						if (ans == roundObj.getPuzzle()) {
+							cout << "correct\n";
+							total[i] += money_value;
+							list->deleteNode(i-1);
+							list->insertNth(i, name[i], total[i], i-1);
+							cout << "SCORES BELOW" << endl;
+							list->display();
+							solved = true;
+						}
+						else {
 
-						solved = true;
+							cout << "incorrect\n";
+						}
 					}
 					else {
-
-						cout << "incorrect\n";
+						cout << "you can't solve. you do not have any money" << endl;
 					}
+					
 				}
 				else if (temp == "BuyVowel")
 				{
@@ -218,11 +223,8 @@ int main() {
 					{
 						if (total[i] > vowel_amount)
 						{
-							total[i] = money_value - vowel_amount;
 							cout << " Money left :" << total[i] << endl;
 							int occurence = 0;
-							total[i] = total[i] - vowel_amount;
-							cout << " Money left :" << total[i] << endl;
 							char guess2[2];
 							strcpy_s(guess2, vowel.c_str());
 							if (g_letters->searchNode(vowel) == 1)
@@ -231,37 +233,27 @@ int main() {
 								cout << "try again" << endl;
 							}
 							else {
+								total[i] = money_value - vowel_amount;
 								g_letters->Enqueue(vowel);
 								string s = roundObj.getPuzzle();
-								for (int x = 0; x < s.length(); x++)
-								{
-									if (s[x] == guess2[0])
-									cout << "Vowel has already been guessed" << endl;
-									cout << "Try again" << endl;
+								for (int x = 0; x < s.length(); x++){
+									occurence++;
 								}
-								else {
-									g_letters->Enqueue(vowel);
-									string s = roundObj.getPuzzle();
-									for (int x = 0; x < s.length(); x++)
-									{
-										occurence++;
-									}
-								}
-								if (occurence == 0)
+							}
+							if (occurence == 0)
+							{
+								cout << "That letter was not found in the word" << endl;
+								if (i == 3)
 								{
-									cout << "That letter was not found in the word" << endl;
-									if (i == 3)
-									{
-										i = 0;
-										break;
-									}
+									i = 0;
 									break;
 								}
-								else {
-									total[i] += occurence * money_value;
-									roundObj.setRoundTotal(total[i], i);
-									cout << "That letter was found in the word" << endl;
-								}
+								break;
+							}
+							else {
+								total[i] += occurence * money_value;
+								roundObj.setRoundTotal(total[i], i);
+								cout << "That letter was found in the word" << endl;
 							}
 						}
 						else if (total[i] < vowel_amount)
@@ -277,11 +269,12 @@ int main() {
 				if (solved == true) {
 					cout << "End of Round " << round << endl;
 					round++;
-					string Answer;
 					cout << "Do you want to exit the game?" << endl;
 					cin >> Answer;
 					if (Answer == "Yes" || Answer == "yes")
 					{
+						cout << "Scores before exiting shown below" << endl;
+						list->display();
 						cout << "Thank you for playing" << endl;
 						exit(0);
 					}
@@ -293,7 +286,11 @@ int main() {
 					}
 				}
 			}
+			if (Answer == "No" || Answer == "no")
+				break;
 		}
+		cout << "End of 3 rounds... Scores shown below" << endl;
+		list->display();
 	}
 	return 0;
 }
