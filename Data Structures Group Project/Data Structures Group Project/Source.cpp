@@ -146,8 +146,6 @@ int main() {
 						break;
 					}
 					}
-				
-				//cout << money_value;
 				cout << "\nWould you like to Guess or Solve or BuyVowel: ";
 				cin >> temp;
 				if (temp == "Guess") {
@@ -190,7 +188,7 @@ int main() {
 					}
 				}
 				else if (temp == "Solve") {
-					if (/*total[i]*/ money_value > 0) {
+					if (money_value > 0) {
 						cout << "What is the answer? ";
 						cin >> ans;
 						if (ans == roundObj.getPuzzle()) {
@@ -296,5 +294,27 @@ int main() {
 	}
 	cout << "\nEnd of 3 rounds... Scores shown below" << endl;
 	list->display();
+	cout << "\n";
+	int plyr;
+	for (int i = 0; i < 3; i++)
+	{
+		if (total[0] < total[i])
+		{
+			total[0] = total[i];
+		}
+		for (int j = 1; j < 4; j++)
+		{
+			if (total[0] == total[i])
+			{
+				plyr = j;
+			}
+			break;
+		}
+	}
+	cout << "************************************************************************************************************************************************************************";
+	cout << "\nTHE WINNER OF TODAY'S WHEEL OF FORTUNE IS PLAYER "<<plyr <<" "<<"WITH A TOTAL OF "<< total[0]<< "POINTS"<<endl;
+	
+	cout << "\n\nPlay wheel of fortune today......you could be our next lucky winner.\n";
+	cout << "************************************************************************************************************************************************************************\n";
 	return 0;
 }
