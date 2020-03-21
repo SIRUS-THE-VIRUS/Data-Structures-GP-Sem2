@@ -148,6 +148,20 @@ int main() {
 					}
 				cout << "\nWould you like to Guess or Solve or BuyVowel: ";
 				cin >> temp;
+				cout << "\n" << endl;
+				string Word = roundObj.getPuzzle();
+				string hiddenWord = " ";
+				unsigned long int _length_ = Word.length();
+				hiddenWord.append((_length_), '_');
+				for (int i = 0; i < Word.length(); ++i)
+				{
+					if (Word[i] != ' ')
+					{
+						Word[i]='*';
+					}
+				}
+				cout << Word << endl;
+
 				if (temp == "Guess") {
 					int occurence = 0;
 					char guess2[2];
@@ -196,6 +210,7 @@ int main() {
 							total[i] += money_value;
 							list->deleteNode(i-1);
 							list->insertNth(i, name[i], total[i], i-1);
+							system("CLS");
 							cout << "SCORES BELOW" << endl;
 							list->display();
 							solved = true;
@@ -273,6 +288,7 @@ int main() {
 					cout << "\nDo you want to exit the game?" << endl;
 					cin >> Answer;
 					cout << "\n";
+					system("CLS");
 					if (Answer == "Yes" || Answer == "yes")
 					{
 						cout << "\nScores before exiting shown below" << endl;
