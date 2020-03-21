@@ -1,6 +1,7 @@
 ﻿  Source.cpp
-C:\Users\watso\OneDrive\Documents\GitHub\Data-Structures-GP-Sem2\Data Structures Group Project\Data Structures Group Project\Source.cpp(169,25): warning C4018: '<': signed/unsigned mismatch
-C:\Users\watso\OneDrive\Documents\GitHub\Data-Structures-GP-Sem2\Data Structures Group Project\Data Structures Group Project\Source.cpp(198,43): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\watso\OneDrive\Documents\GitHub\Data-Structures-GP-Sem2\Data Structures Group Project\Data Structures Group Project\Source.cpp(240,27): warning C4018: '<': signed/unsigned mismatch
-C:\Users\watso\OneDrive\Documents\GitHub\Data-Structures-GP-Sem2\Data Structures Group Project\Data Structures Group Project\Source.cpp(217,10): warning C4101: 'num': unreferenced local variable
+C:\Users\watso\OneDrive\Documents\GitHub\Data-Structures-GP-Sem2\Data Structures Group Project\Data Structures Group Project\Source.cpp(156,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\watso\OneDrive\Documents\GitHub\Data-Structures-GP-Sem2\Data Structures Group Project\Data Structures Group Project\Source.cpp(183,25): warning C4018: '<': signed/unsigned mismatch
+C:\Users\watso\OneDrive\Documents\GitHub\Data-Structures-GP-Sem2\Data Structures Group Project\Data Structures Group Project\Source.cpp(212,43): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\watso\OneDrive\Documents\GitHub\Data-Structures-GP-Sem2\Data Structures Group Project\Data Structures Group Project\Source.cpp(255,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\watso\OneDrive\Documents\GitHub\Data-Structures-GP-Sem2\Data Structures Group Project\Data Structures Group Project\Source.cpp(232,10): warning C4101: 'num': unreferenced local variable
   Data Structures Group Project.vcxproj -> C:\Users\watso\OneDrive\Documents\GitHub\Data-Structures-GP-Sem2\Data Structures Group Project\Debug\Data Structures Group Project.exe
