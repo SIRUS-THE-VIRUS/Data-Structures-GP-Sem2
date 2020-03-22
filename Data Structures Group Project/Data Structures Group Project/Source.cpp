@@ -168,6 +168,15 @@ int main() {
 					while (true) {
 						cout << "What letter?  " << endl;
 						cin >> guess;
+						/*for (int k = 0; k < Word.length(); k++)
+						{
+							if (Word[i] == guess)
+							{
+								Word[i] = guess;
+							}
+							else
+								Word[i] = '*';
+						}*/
 						strcpy_s(guess2, guess.c_str());
 						if (g_letters->searchNode(guess) == 1) {
 							cout << "This letter has already been guessed\n" << endl;
