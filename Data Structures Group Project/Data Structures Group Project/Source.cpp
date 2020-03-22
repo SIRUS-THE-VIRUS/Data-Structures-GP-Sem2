@@ -304,7 +304,7 @@ int main() {
 					}
 				}
 			}
-			if (Answer == "No" || Answer == "no")
+			if ((Answer == "No" || Answer == "no") && solved==true)
 				break;
 		}	
 	}
