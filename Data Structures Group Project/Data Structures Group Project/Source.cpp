@@ -86,7 +86,7 @@ int main() {
 				throw(cattemp); //using throw block to transfer error to catch block
 			}
 		}
-		catch (int e)
+		catch (string cattempp)
 		{
 			cout << "Invalid category name" << endl; //Showing error
 		}
@@ -154,17 +154,18 @@ int main() {
 						break;
 					}
 				}
+				int err = 0;
 				try //Exception Handling
 				{
 
-					cout << "\nWould you like to Guess or Solve or BuyVowel: "<<endl;
+					cout << "\nWould you like to Guess or Solve or BuyVowel: " << endl;
 					cin >> temp;
 					if (!(temp == "Guess" || temp == "Solve" || temp == "BuyVowel"))
 					{
 						throw(temp); //using throw block to transfer error to catch block
 					}
 				}
-				catch (int e)
+				catch (string tempp)
 				{
 					cout << "Invalid choice\n" << endl; //showing the error
 				}
