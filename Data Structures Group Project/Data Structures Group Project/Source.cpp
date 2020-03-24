@@ -23,7 +23,7 @@ public:
 	void setRoundTotal(int roundTotal,int i) {
 		this->roundTotal[i] = roundTotal;
 	}
-	string getCategory() {
+	string getCategory() { // guess
 		return category;
 	}
 	string getPuzzle() {
@@ -58,7 +58,7 @@ int main() {
 	}
 	//list->display();
 	//list->deleteNode(1);
-	//list->display();
+	//list->display();  
 	////list->insertNth(2, "daddy", 5000, 1);
 	//list->display();
 	system("pause");
@@ -80,14 +80,25 @@ int main() {
 	while (round <= 3) {
 		int skip[4] = { 0,0,0,0 };
 		cout << "\t \t \t \t Round " << round << endl;
-		cout << "Select a Category  (Person,Place,Thing) : ";
-		cin >> cattemp;
+		try //Exception Handling
+		{
+			cout << "Select a Category  (Person,Place,Thing) : " << endl;
+			cin >> cattemp;
+			if (!(cattemp == "Person" || cattemp == "Place" || cattemp == "Thing"))// checking the category entered is valid
+			{
+				throw(cattemp); //using throw block to transfer error to catch block
+			}
+		}
+		catch (int e)
+		{
+			cout << "Invalid category name" << endl; //Showing error
+		}
 		system("CLS");
 		cout << "Category: " << cattemp << endl;
 		cout << "\n" << endl;
 		ifstream infile;
 
-		infile.open("puzzle.txt");
+		infile.open("puzzle.txt"); //opens the file in which the answers are stored
 		while (infile >> temp >> temp2)
 		{
 			if (temp == cattemp)
@@ -101,7 +112,7 @@ int main() {
 			while (solved == false)
 			{
 				if (skip[1] == 1 && skip[2] == 1 && skip[3] == 1) {
-					cout << "you all are bankrupt no one wins" << endl;
+					cout << "you all are bankrupt no one wins" << endl; //all 3 players are bankrupt
 					round++;
 					i = 3;
 					break;
@@ -117,12 +128,12 @@ int main() {
 				cout << "\n";
 				cout << "Press enter to spin the wheel " << endl;
 				system("pause");
-				int randomnum = 50 + rand() % 150;
+				int randomnum = 50 + rand() % 150; // the wheel spins and then stops on a card
 				cout << "Random number genereated : " << randomnum << endl;
 				money_value = wheel->traverse(randomnum);
-				if (money_value > 0) {
+				if (money_value > 0) { // the player only can play if they have money
 					cout << "\nYou landed on money" << endl;
-					cout << "TEST" << endl;
+					//cout << "TEST" << endl;
 					cout << "Money : " << money_value << endl;
 				}
 				else if (money_value == 0) {
@@ -146,8 +157,19 @@ int main() {
 						break;
 					}
 				}
-				cout << "\nWould you like to Guess or Solve or BuyVowel: ";
-				cin >> temp;
+				try //Exception Handling
+				{
+					cout << "\nWould you like to Guess or Solve or BuyVowel: "<<endl;
+					cin >> temp;
+					if (!(temp == "Guess" || temp == "Solve" || temp == "BuyVowel"))
+					{
+						throw(temp); //using throw block to transfer error to catch block
+					}
+				}
+				catch (int e)
+				{
+					cout << "Invalid choice\n" << endl; //showing the error
+				}
 				cout << "\n" << endl;
 				string Word = roundObj.getPuzzle();
 				string hiddenWord = " ";
@@ -169,7 +191,7 @@ int main() {
 						while (true) {
 							cout << "What letter?  " << endl;
 							cin >> guess;
-							/*for (int k = 0; k < Word.length(); k++)
+							/*for (int k = 0; k < Word.length(); k++) // reveals a letter after a guess
 							{
 								if (Word[i] == guess)
 								{
@@ -221,7 +243,8 @@ int main() {
 								list->deleteNode(i - 1);
 								list->insertNth(i, name[i], total[i], i - 1);
 								system("CLS");
-								cout << "SCORES BELOW" << endl;
+								cout << "SCORES BELOW" << endl; 
+								// after a player answers a puzzle correctly the scores are displayed after
 								list->display();
 								solved = true;
 								system("pause");
@@ -246,8 +269,9 @@ int main() {
 						cin >> vowel;
 
 						if (vowel == "a" || vowel == "e" || vowel == "i" || vowel == "o" || vowel == "u")
+							//ensures that vowels alone are entered
 						{
-							if (total[i] > vowel_amount)
+							if (total[i] > vowel_amount)// checks to see if the player can buy a vowel
 							{
 								cout << " Money left :" << total[i] << endl;
 								int occurence = 0;
@@ -295,7 +319,7 @@ int main() {
 					if (solved == true) {
 						cout << "\nEnd of Round " << round << endl;
 						round++;
-						cout << "\nDo you want to exit the game?" << endl;
+						cout << "\nDo you want to exit the game?" << endl; 
 						cin >> Answer;
 						cout << "\n";
 						system("CLS");
@@ -322,7 +346,7 @@ int main() {
 		list->display();
 		cout << "\n";
 		int plyr;
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < 3; i++) //search for the player with the most points
 		{
 			if (total[0] < total[i])
 			{
