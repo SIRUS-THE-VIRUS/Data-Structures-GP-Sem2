@@ -6,10 +6,12 @@ private:
 	string type;
 	int value;
 public:
+	//default constructor
 	card() {
 		type = "None";
 		value = 9999;
 	}
+	//getters and setters
 	void setType(string type) {
 		this->type = type;
 	}
@@ -22,6 +24,7 @@ public:
 	int getValue() {
 		return value;
 	}
+	//display method
 	void display() {
 		cout << "Card Type:      " << type << endl;
 		cout << "Card Value:        " << value << endl;
