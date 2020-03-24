@@ -4,16 +4,18 @@ string wtype;
 using namespace std;
 class WLinkedList {
 private:
-	WNode* head;
-	WNode* tail;
+	WNode* head; 
+	WNode* tail; 
 public:
 	WLinkedList() {
-		head = NULL;
+		// head and tail points to null
+		head = NULL; 
 		tail = NULL;
 	}
 	void append(string type, int value) {
 		WNode* newNode = new WNode(type, value);
 		if (head == NULL) {
+			// head and tail points to  a new node
 			head = newNode;
 			tail = newNode;
 			newNode->setNext(head);
