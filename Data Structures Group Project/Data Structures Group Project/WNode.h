@@ -7,13 +7,16 @@ private:
 	card data;
 	WNode* next;
 public:
+	//default constructor
 	WNode():data() {
 		next = NULL;
 	}
+	//primary constructor
 	WNode(string type, int value) {
 		data.setType(type);
 		data.setValue(value);
 	}
+	//getters and setters
 	void setNext(WNode* next) {
 		this->next = next;
 	}
