@@ -7,9 +7,11 @@ class letters {
 private:
 	string guess;
 public:
+	//default constructor
 	letters() {
 		guess = "";
 	}
+	//getters and setters
 	letters(string guess) {
 		this->guess = guess;
 	}
