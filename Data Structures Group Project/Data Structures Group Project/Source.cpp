@@ -3,6 +3,7 @@
 #include "WLinkedList.h"
 #include <fstream>
 #include <iostream>
+#include <algorithm>
 using namespace std;
 class Round {
 private:
@@ -41,6 +42,7 @@ int main() {
 	int vowel_amount = 50;
 	string name[4];
 	string Answer;
+	string underscore;
 	string temp, temp2, cattemp, ans,guess;
 	bool solved = false;
 	PLinkedList* list = new PLinkedList();
@@ -56,24 +58,19 @@ int main() {
 		name[i] = temp;
 		list->append(i, temp, 0);
 	}
-	//list->display();
-	//list->deleteNode(1);
-	//list->display();  
-	////list->insertNth(2, "daddy", 5000, 1);
-	//list->display();
 	system("pause");
 	system("CLS");
 
 	cout << "\nGenerating Wheel........." << endl;
 	system("pause");
 	system("CLS");
-	wheel->append("Money", 100);
 	wheel->append("Money", 200);
-	wheel->append("Money", 300);
-	wheel->append("Money", 400);
-	wheel->append("Money", 500);
-	wheel->append("Money", 600);
-	wheel->append("Money", 700);
+	wheel->append("Money", 200);
+	wheel->append("Money", 200);
+	wheel->append("Money", 200);
+	wheel->append("Money", 200);
+	wheel->append("Money", 200);
+	wheel->append("Money", 200);
 
 	cout << "\nWheel was Generated successfully\n" << endl;
 
@@ -105,6 +102,7 @@ int main() {
 			{
 				roundObj.setCategory(temp);
 				roundObj.setPuzzle(temp2);
+				underscore = string(temp2.size(), '_'); // init a string with underscores equal to the length of 'word'
 			}
 		}
 		for (int i = 1; i <= 3; i++) {
@@ -133,7 +131,6 @@ int main() {
 				money_value = wheel->traverse(randomnum);
 				if (money_value > 0) { // the player only can play if they have money
 					cout << "\nYou landed on money" << endl;
-					//cout << "TEST" << endl;
 					cout << "Money : " << money_value << endl;
 				}
 				else if (money_value == 0) {
@@ -159,6 +156,7 @@ int main() {
 				}
 				try //Exception Handling
 				{
+
 					cout << "\nWould you like to Guess or Solve or BuyVowel: "<<endl;
 					cin >> temp;
 					if (!(temp == "Guess" || temp == "Solve" || temp == "BuyVowel"))
@@ -171,55 +169,128 @@ int main() {
 					cout << "Invalid choice\n" << endl; //showing the error
 				}
 				cout << "\n" << endl;
-				string Word = roundObj.getPuzzle();
-				string hiddenWord = " ";
-				unsigned long int _length_ = Word.length();
-				hiddenWord.append((_length_), '_');
-					for (int i = 0; i < Word.length(); ++i)
-					{
-						if (Word[i] != ' ')
-						{
-							Word[i] = '*';
+
+				/*
+				string word  = roundObj.getPuzzle();
+				string underscore = string(word.size(), '_'); // init a string with underscores equal to the length of 'word'
+				string guess = "mansomething";
+				// iterate over the characters in word and guess
+				for (size_t i = 0, iend = min(word.size(), guess.size()); i < iend; i++) {
+					if (word[i] == guess[i])
+						underscore[i] = word[i];  // if the characters match at position i, update the underscore.
+				}
+
+				cout << underscore << endl;
+				
+				*/
+				if (temp == "Guess") {
+					int occurence = 0;
+					char guess2[2];
+					while (true) {
+						cout << "What letter?  " << endl;
+						cin >> guess;
+						string word = roundObj.getPuzzle();
+						// iterate over the characters in word and guess
+						for (size_t i = 0, iend = word.size(); i < iend; i++) {
+							if (word[i] == guess[0])
+								underscore[i] = word[i];  // if the characters match at position i, update the underscore.
+						}
+
+						cout << underscore << endl;
+						strcpy_s(guess2, guess.c_str());
+						if (g_letters->searchNode(guess) == 1) {
+							cout << "This letter has already been guessed\n" << endl;
+							cout << "Try again" << endl;
+						}
+						else {
+							break;
 						}
 					}
-					cout << "\t \t \t";
-					cout << Word << endl;
-
-					if (temp == "Guess") {
-						int occurence = 0;
-						char guess2[2];
-						while (true) {
-							cout << "What letter?  " << endl;
-							cin >> guess;
-							/*for (int k = 0; k < Word.length(); k++) // reveals a letter after a guess
-							{
-								if (Word[i] == guess)
-								{
-									Word[i] = guess;
-								}
-								else
-									Word[i] = '*';
-							}*/
-							strcpy_s(guess2, guess.c_str());
-							if (g_letters->searchNode(guess) == 1) {
-								cout << "This letter has already been guessed\n" << endl;
-								cout << "Try again" << endl;
-							}
-							else {
-								break;
+					if (g_letters->searchNode(guess) != 1) {
+						g_letters->Enqueue(guess);
+						string s = roundObj.getPuzzle();
+						for (int x = 0; x < s.length(); x++) {
+							if (s[x] == guess2[0]) {
+								occurence++;
 							}
 						}
-						if (g_letters->searchNode(guess) != 1) {
-							g_letters->Enqueue(guess);
-							string s = roundObj.getPuzzle();
-							for (int x = 0; x < s.length(); x++) {
-								if (s[x] == guess2[0]) {
+						if (occurence == 0) {
+							cout << "That letter was not found in the word\n" << endl;
+							if (i == 3) {
+								i = 0;
+								break;
+							}
+							break;
+						}
+						else {
+							total[i] += occurence * money_value;
+							roundObj.setRoundTotal(total[i], i);
+							cout << "That letter was found in the word\n" << endl;
+						}
+
+					}
+				}
+				else if (temp == "Solve") {
+					if (money_value > 0) {
+						cout << "What is the answer? ";
+						cin >> ans;
+						if (ans == roundObj.getPuzzle()) {
+							cout << "correct\n\n";
+							total[i] += money_value;
+							list->deleteNode(i - 1);
+							list->insertNth(i, name[i], total[i], i - 1);
+							system("CLS");
+							cout << "SCORES BELOW" << endl; 
+							// after a player answers a puzzle correctly the scores are displayed after
+							list->display();
+							solved = true;
+							system("pause");
+							system("CLS");
+						}
+						else {
+
+							cout << "incorrect\n";
+						}
+					}
+					else {
+						cout << "you can't solve. you do not have any money\n" << endl;
+					}
+
+				}
+				else if (temp == "BuyVowel")
+				{
+					int num;
+					string vowel;
+					cout << "\n";
+					cout << "Enter the vowel you wish to buy (a, e, i, o or u): " << endl;
+					cin >> vowel;
+					if (vowel == "a" || vowel == "e" || vowel == "i" || vowel == "o" || vowel == "u")
+						//ensures that vowels alone are entered
+					{
+						if (total[i] > vowel_amount)// checks to see if the player can buy a vowel
+						{
+							cout << " Money left :" << total[i] << endl;
+							int occurence = 0;
+							char guess2[2];
+							strcpy_s(guess2, vowel.c_str());
+							if (g_letters->searchNode(vowel) == 1)
+							{
+								cout << "Vowel has already been guessed" << endl;
+								cout << "try again" << endl;
+							}
+							else {
+								total[i] = money_value - vowel_amount;
+								g_letters->Enqueue(vowel);
+								string s = roundObj.getPuzzle();
+								for (int x = 0; x < s.length(); x++) {
 									occurence++;
 								}
 							}
-							if (occurence == 0) {
-								cout << "That letter was not found in the word\n" << endl;
-								if (i == 3) {
+							if (occurence == 0)
+							{
+								cout << "That letter was not found in the word" << endl;
+								if (i == 3)
+								{
 									i = 0;
 									break;
 								}
@@ -228,118 +299,50 @@ int main() {
 							else {
 								total[i] += occurence * money_value;
 								roundObj.setRoundTotal(total[i], i);
-								cout << "That letter was found in the word\n" << endl;
+								cout << "That letter was found in the word" << endl;
+								string word = roundObj.getPuzzle();
+								// iterate over the characters in word and guess
+								for (size_t i = 0, iend = word.size(); i < iend; i++) {
+									if (word[i] == vowel[0])
+										underscore[i] = word[i];  // if the characters match at position i, update the underscore.
+								}
+								cout << underscore << endl;
 							}
-
+						}
+						else if (total[i] < vowel_amount)
+						{
+							cout << "Sorry, you dont have enough money \n";
 						}
 					}
-					else if (temp == "Solve") {
-						if (money_value > 0) {
-							cout << "What is the answer? ";
-							cin >> ans;
-							if (ans == roundObj.getPuzzle()) {
-								cout << "correct\n\n";
-								total[i] += money_value;
-								list->deleteNode(i - 1);
-								list->insertNth(i, name[i], total[i], i - 1);
-								system("CLS");
-								cout << "SCORES BELOW" << endl; 
-								// after a player answers a puzzle correctly the scores are displayed after
-								list->display();
-								solved = true;
-								system("pause");
-								system("CLS");
-							}
-							else {
-
-								cout << "incorrect\n";
-							}
-						}
-						else {
-							cout << "you can't solve. you do not have any money\n" << endl;
-						}
-
-					}
-					else if (temp == "BuyVowel")
+					else
 					{
-						int num;
-						string vowel;
-						cout << "\n";
-						cout << "Enter the vowel you wish to buy (a, e, i, o or u): " << endl;
-						cin >> vowel;
-
-						if (vowel == "a" || vowel == "e" || vowel == "i" || vowel == "o" || vowel == "u")
-							//ensures that vowels alone are entered
-						{
-							if (total[i] > vowel_amount)// checks to see if the player can buy a vowel
-							{
-								cout << " Money left :" << total[i] << endl;
-								int occurence = 0;
-								char guess2[2];
-								strcpy_s(guess2, vowel.c_str());
-								if (g_letters->searchNode(vowel) == 1)
-								{
-									cout << "Vowel has already been guessed" << endl;
-									cout << "try again" << endl;
-								}
-								else {
-									total[i] = money_value - vowel_amount;
-									g_letters->Enqueue(vowel);
-									string s = roundObj.getPuzzle();
-									for (int x = 0; x < s.length(); x++) {
-										occurence++;
-									}
-								}
-								if (occurence == 0)
-								{
-									cout << "That letter was not found in the word" << endl;
-									if (i == 3)
-									{
-										i = 0;
-										break;
-									}
-									break;
-								}
-								else {
-									total[i] += occurence * money_value;
-									roundObj.setRoundTotal(total[i], i);
-									cout << "That letter was found in the word" << endl;
-								}
-							}
-							else if (total[i] < vowel_amount)
-							{
-								cout << "Sorry, you dont have enough money \n";
-							}
-						}
-						else
-						{
-							cout << "You did not enter a vowel \n";
-						}
-					}
-					if (solved == true) {
-						cout << "\nEnd of Round " << round << endl;
-						round++;
-						cout << "\nDo you want to exit the game?" << endl; 
-						cin >> Answer;
-						cout << "\n";
-						system("CLS");
-						if (Answer == "Yes" || Answer == "yes")
-						{
-							cout << "\nScores before exiting shown below" << endl;
-							list->display();
-							cout << "\nThank you for playing wheel of fortune!!" << endl;
-							exit(0);
-						}
-						else if (Answer == "No" || Answer == "no")
-						{
-							g_letters->setFront(NULL);
-							solved = false;
-							break;
-						}
+						cout << "You did not enter a vowel \n";
 					}
 				}
-				if ((Answer == "No" || Answer == "no") && solved == true)
-					break;
+				if (solved == true) {
+					cout << "\nEnd of Round " << round << endl;
+					round++;
+					cout << "\nDo you want to exit the game?" << endl; 
+					cin >> Answer;
+					cout << "\n";
+					system("CLS");
+					if (Answer == "Yes" || Answer == "yes")
+					{
+						cout << "\nScores before exiting shown below" << endl;
+						list->display();
+						cout << "\nThank you for playing wheel of fortune!!" << endl;
+						exit(0);
+					}
+					else if (Answer == "No" || Answer == "no")
+					{
+						g_letters->setFront(NULL);
+						solved = false;
+						break;
+					}
+				}
+			}
+			if ((Answer == "No" || Answer == "no") && solved == true)
+				break;
 			}
 		}
 		cout << "\nEnd of 3 rounds... Scores shown below" << endl;
