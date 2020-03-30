@@ -73,6 +73,13 @@ int main() {
 	wheel->append("Money", 200);
 
 	cout << "\nWheel was Generated successfully\n" << endl;
+	cout << "\nGenerating Puzzle File........." << endl;
+	ofstream MyFile("puzzle.txt");
+	MyFile << "Person alexandria"<< endl;
+	MyFile << "Place germany" << endl;
+	MyFile << "Thing joystick" << endl;
+	MyFile.close();
+	cout << "\nPuzzle File was Generated successfully\n" << endl;
 
 	while (round <= 3) {
 		int skip[4] = { 0,0,0,0 };
@@ -170,25 +177,11 @@ int main() {
 					cout << "Invalid choice\n" << endl; //showing the error
 				}
 				cout << "\n" << endl;
-
-				/*
-				string word  = roundObj.getPuzzle();
-				string underscore = string(word.size(), '_'); // init a string with underscores equal to the length of 'word'
-				string guess = "mansomething";
-				// iterate over the characters in word and guess
-				for (size_t i = 0, iend = min(word.size(), guess.size()); i < iend; i++) {
-					if (word[i] == guess[i])
-						underscore[i] = word[i];  // if the characters match at position i, update the underscore.
-				}
-
-				cout << underscore << endl;
-				
-				*/
 				if (temp == "Guess") {
 					int occurence = 0;
 					char guess2[2];
 					while (true) {
-						cout << "What letter?  " << endl;
+						cout << "What letter (None Vowel)?  " << endl;
 						cin >> guess;
 						string word = roundObj.getPuzzle();
 						// iterate over the characters in word and guess
