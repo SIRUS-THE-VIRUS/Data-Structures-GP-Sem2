@@ -84,19 +84,26 @@ int main() {
 	while (round <= 3) {
 		int skip[4] = { 0,0,0,0 };
 		cout << "\t \t \t \t Round " << round << endl;
-		try //Exception Handling
-		{
-			cout << "Select a Category  (Person,Place,Thing) : " << endl;
-			cin >> cattemp;
-			if (!(cattemp == "Person" || cattemp == "Place" || cattemp == "Thing"))// checking the category entered is valid
+		int err;
+		do {
+			try //Exception Handling
 			{
-				throw(cattemp); //using throw block to transfer error to catch block
+				cout << "\nSelect a Category  (Person,Place,Thing) : " << endl;
+				cin >> cattemp;
+				if (!(cattemp == "Person" || cattemp == "Place" || cattemp == "Thing"))// checking the category entered is valid
+				{
+					throw(cattemp); //using throw block to transfer error to catch block
+				}
+				else
+					err = 1;
 			}
-		}
-		catch (string cattempp)
-		{
-			cout << "Invalid category name" << endl; //Showing error
-		}
+			catch (string cattempp)
+			{
+				cout << "Invalid category name" << endl; //Showing error
+				err = 0;
+				system("pause");
+			}
+		} while (err==0);
 		system("CLS");
 		cout << "Category: " << cattemp << endl;
 		cout << "\n" << endl;
@@ -161,21 +168,28 @@ int main() {
 						break;
 					}
 				}
-				int err = 0;
-				try //Exception Handling
-				{
-
-					cout << "\nWould you like to Guess or Solve or BuyVowel: " << endl;
-					cin >> temp;
-					if (!(temp == "Guess" || temp == "Solve" || temp == "BuyVowel"))
+				int err;
+				do {
+					try //Exception Handling
 					{
-						throw(temp); //using throw block to transfer error to catch block
+
+						cout << "\nWould you like to Guess or Solve or BuyVowel: " << endl;
+						cin >> temp;
+						if (!(temp == "Guess" || temp == "Solve" || temp == "BuyVowel"))
+						{
+							throw(temp); //using throw block to transfer error to catch block
+						}
+						else
+							err = 1;
 					}
-				}
-				catch (string tempp)
-				{
-					cout << "Invalid choice\n" << endl; //showing the error
-				}
+					catch (string tempp)
+					{
+						cout << "Invalid choice\n" << endl; //showing the error
+						err = 0;
+						system("pause");
+					}
+				} while (err == 0);
+
 				cout << "\n" << endl;
 				if (temp == "Guess") {
 					int occurence = 0;
@@ -359,7 +373,7 @@ int main() {
 			}
 		}
 		cout << "************************************************************************************************************************************************************************";
-		cout << "\nTHE WINNER OF TODAY'S WHEEL OF FORTUNE IS PLAYER " << plyr << " " << "WITH A TOTAL OF " << total[0] << "POINTS" << endl;
+		cout << "\nTHE WINNER OF TODAY'S WHEEL OF FORTUNE IS PLAYER " << plyr << " " << "WITH A TOTAL OF " << total[0] << " POINTS" << endl;
 
 		cout << "\n\nPlay wheel of fortune today......you could be our next lucky winner.\n";
 		cout << "************************************************************************************************************************************************************************\n";
